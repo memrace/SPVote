@@ -4,13 +4,19 @@ using System.Linq;
 
 namespace SpeechVoting
 {
-    public abstract class VotingBase
+    public abstract class VotingBase: Entity
     {
         public abstract DateTime? StartDate {  get; protected set; }
         public abstract DateTime? EndDate { get; protected set; }
         public abstract Dictionary<Speech, List<UserProfile>> VoteMap { get; }
-        public Guid Id => Guid.NewGuid();
 
+        protected VotingBase(): base()
+		{
+		}
+        protected VotingBase(Guid id): base(id)
+		{
+
+		}
         internal Speech GetWinner()
         {
             var maxVote = VoteMap.Max(pair => pair.Value.Count);

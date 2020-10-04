@@ -38,9 +38,5 @@ namespace SpeechVoting
             EndDate = endDate;
         }
 
-        internal void Prolong(int amountDays)
-        {
-            EndDate = EndDate.Value.AddDays(amountDays);
-        }
     }
 }

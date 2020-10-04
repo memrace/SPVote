@@ -5,8 +5,7 @@ namespace SpeechVoting
 {
     public class VotingTheme
     {
-        private ActiveVoting _activeVoting;
-        private readonly IVotingHistoryService _votingHistoryService;
+		private readonly IVotingHistoryService _votingHistoryService;
 
         public VotingTheme(string title, IVotingHistoryService votingHistoryService)
         {
@@ -16,39 +15,39 @@ namespace SpeechVoting
         }
 
         public string Title { get; }
-        public Speech Winner => _activeVoting.GetWinner();
-        public IEnumerable<Speech> Speeches => _activeVoting.VoteMap.Keys;
-        public ActiveVoting ActiveVoting => _activeVoting;
-        public IEnumerable<ClosedVoting> ClosedVotings => _votingHistoryService.GetClosedVotings();
+        public Speech Winner => ActiveVoting.GetWinner();
+        public IEnumerable<Speech> Speeches => ActiveVoting.VoteMap.Keys;
+		public ActiveVoting ActiveVoting { get; private set; }
+		public IEnumerable<ClosedVoting> ClosedVotings => _votingHistoryService.GetClosedVotings();
 
         internal void Create()
         {
-            if (_activeVoting != null)
+            if (ActiveVoting != null)
             {
                 throw new Exception("Активное голосование уже существует.");
             }
-            _activeVoting = new ActiveVoting();
+            ActiveVoting = new ActiveVoting();
         }
 
         internal void Close()
         {
-            _votingHistoryService.Close(new ClosedVoting(_activeVoting.StartDate, _activeVoting.EndDate, _activeVoting.VoteMap));
-            _activeVoting = null;
+            _votingHistoryService.Close(new ClosedVoting(ActiveVoting.StartDate, ActiveVoting.EndDate, ActiveVoting.VoteMap));
+            ActiveVoting = null;
         }
 
         public void AddSpeech(Speech speech)
         {
-            _activeVoting.AddSpeech(speech);
+            ActiveVoting.AddSpeech(speech);
         }
 
         public void RemoveSpeech(Speech speech)
         {
-            _activeVoting.RemoveSpeech(speech);
+            ActiveVoting.RemoveSpeech(speech);
         }
 
         public void Vote(Speech speech, UserProfile profile)
         {
-            _activeVoting.Vote(speech, profile);
+            ActiveVoting.Vote(speech, profile);
         }
 
     }
