@@ -33,7 +33,7 @@ namespace SpeechVoting
             StartDate = startDate;
         }
 
-        internal void Prolong(DateTime endDate)
+        internal void SetEndDate(DateTime endDate)
         {
             EndDate = endDate;
         }

@@ -15,7 +15,6 @@ namespace SpeechVoting
         }
 
         public string Title { get; }
-        public Speech Winner => ActiveVoting.GetWinner();
         public IEnumerable<Speech> Speeches => ActiveVoting.VoteMap.Keys;
 		public ActiveVoting ActiveVoting { get; private set; }
 		public IEnumerable<ClosedVoting> ClosedVotings => _votingHistoryService.GetClosedVotings();

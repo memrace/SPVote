@@ -17,7 +17,7 @@ namespace SpeechVoting
 		{
 
 		}
-        internal Speech GetWinner()
+        public Speech GetWinner()
         {
             var maxVote = VoteMap.Max(pair => pair.Value.Count);
             if (VoteMap.Count(pair => pair.Value.Count == maxVote) > 1)

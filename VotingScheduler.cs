@@ -14,12 +14,12 @@ namespace SpeechVoting
             _votingHistoryService = votingHistoryService;
         }
 
-        public VotingTheme CreateForce(string title)
+        public VotingTheme Create(string title)
         {
             return _votingTheme = new VotingTheme(title, _votingHistoryService);
         }
 
-        public void CloseForce()
+        public void Close()
         {
             _votingTheme.Close();
             _votingTheme = null;
@@ -31,14 +31,27 @@ namespace SpeechVoting
             _votingTheme.Create();
         }
 
-        public void ProlongForce(int amountDays)
+        public void Prolong(int amountDays)
         {
-            _votingTheme.ActiveVoting.Prolong(_votingTheme.ActiveVoting.EndDate.Value.AddDays(amountDays));
+            _votingTheme.ActiveVoting.SetEndDate(_votingTheme.ActiveVoting.EndDate.Value.AddDays(amountDays));
         }
 
-        public void ProlongForce(DateTime endDate)
+        public void Prolong(DateTime endDate)
         {
-            _votingTheme.ActiveVoting.Prolong(endDate);
+            _votingTheme.ActiveVoting.SetEndDate(endDate);
+        }
+
+        private void CloseAuto() 
+        {
+           
+        }
+        private void CreateAuto() 
+        {
+        
+        }
+        private void ProlongAuto()
+        { 
+        
         }
 
         public void OnVotingClose(VotingEventArgs e)
